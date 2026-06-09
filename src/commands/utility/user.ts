@@ -3,9 +3,9 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from "discord.js";
-import { Command } from "../types";
-import { getRandomResponse } from "../utils/getRandomResponse";
-import { formatDate } from "../utils/formatDate";
+import { Command } from "../../types";
+import { formatDate } from "../../utils/formatDate";
+import { getRandomResponse } from "../../utils/getRandomResponse";
 
 const USER_RESPONSES = [
   "Ahí está la info del user, carnal. 🐭☕",
