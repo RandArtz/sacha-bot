@@ -12,7 +12,6 @@ module.exports = {
         .join(", ");
     }
 
-    // Log completo
     console.log(
       `[CMD] ${interaction.user.tag} (${interaction.user.id}) -> /${interaction.commandName} ${options}`,
     );
@@ -32,18 +31,35 @@ module.exports = {
       const errorMessage =
         error instanceof Error ? error.message : "Error desconocido";
 
+      if (
+        error instanceof Object &&
+        "code" in (error as any) &&
+        (error as any).code === 10062
+      ) {
+        console.warn(
+          `⚠️ Interacción expirada para /${interaction.commandName}, no se puede responder.`,
+        );
+        return;
+      }
+
       const reply = `❌ Valió queso: **${errorMessage}**. \n\nO la rata se enredó en los cables o fue Gemini que volvió a hacer de las suyas. 🙄🐭`;
 
-      if (interaction.replied || interaction.deferred) {
-        await interaction.followUp({
-          content: reply,
-          flags: MessageFlags.Ephemeral,
-        });
-      } else {
-        await interaction.reply({
-          content: reply,
-          flags: MessageFlags.Ephemeral,
-        });
+      try {
+        if (interaction.replied || interaction.deferred) {
+          await interaction.followUp({
+            content: reply,
+            flags: MessageFlags.Ephemeral,
+          });
+        } else {
+          await interaction.reply({
+            content: reply,
+            flags: MessageFlags.Ephemeral,
+          });
+        }
+      } catch {
+        console.warn(
+          `⚠️ No se pudo responder en /${interaction.commandName} (interacción inválida).`,
+        );
       }
     }
   },

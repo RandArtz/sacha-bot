@@ -3,8 +3,8 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from "discord.js";
-import { Command } from "../types";
-import { getRandomResponse } from "../utils/getRandomResponse";
+import { Command } from "../../types";
+import { getRandomResponse } from "../../utils/getRandomResponse";
 
 const SERVER_RESPONSES = [
   "Aquí está el chisme del server, carnal. 🐭☕",
